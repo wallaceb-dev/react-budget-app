@@ -32,3 +32,20 @@ export const deleteItem = ({ key }) => {
   console.log(key);
   return localStorage.removeItem(key);
 };
+
+// create budget
+export const createExpense = ({ name, amount, budgetId }) => {
+  const newItem = {
+    id: crypto.randomUUID(),
+    name: name,
+    createdAt: Date.now(),
+    amount: +amount,
+    budgetId: budgetId
+  };
+
+  const existingExpenses = fetchData('expenses') ?? [];
+  return localStorage.setItem(
+    'expenses',
+    JSON.stringify([...existingExpenses, newItem])
+  );
+};
